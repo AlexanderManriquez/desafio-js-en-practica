@@ -1,5 +1,6 @@
+
 document.getElementById('formulario').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que el formulario se envíe de inmediato
+    event.preventDefault();
 
     // Referencias a los elementos del formulario
     const nombreInput = document.getElementById('nombre');
@@ -12,7 +13,7 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     const errorMensaje = document.querySelector('.errorMensaje');
     const resultado = document.querySelector('.resultado');
 
-    // Expresión regular para solo letras y espacios
+    // Expresión regular para permitir solo letras y espacios (\s)
     const regex = /^[a-zA-Z\s]+$/;
 
     // Variable para controlar si hay errores
@@ -21,43 +22,36 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     // Validación del campo "Nombre completo"
     if (regex.test(nombreInput.value)) {
         errorNombre.textContent = '';
-        nombreInput.style.borderColor = '';
     } else {
-        errorNombre.textContent = 'Por favor, ingrese un nombre válido (solo letras y espacios).';
-        nombreInput.style.borderColor = 'red';
+        errorNombre.textContent = 'El nombre es requerido';
         isError = true;
     }
     
     // Validación del campo "Asunto"
     if (regex.test(asuntoInput.value)) {
-        errorAsunto.textContent = '';
-        asuntoInput.style.borderColor = '';           
+        errorAsunto.textContent = '';         
     } else {
-        errorAsunto.textContent = 'Por favor, ingrese un asunto válido (solo letras y espacios).';
-        asuntoInput.style.borderColor = 'red';
+        errorAsunto.textContent = 'El apellido es requerido';
         isError = true;
     }
 
     // Validación del campo "Mensaje"
     if (regex.test(mensajeInput.value)) {
         errorMensaje.textContent = '';
-        mensajeInput.style.borderColor = '';
     } else {
-        errorMensaje.textContent = 'Por favor, ingrese un mensaje válido (solo letras y espacios).';
-        mensajeInput.style.borderColor = 'red';
+        errorMensaje.textContent = 'El mensaje es requerido';
         isError = true;
     }
 
     // Si no hay errores, mostrar mensaje de éxito
-    if (!isError) {
-        resultado.textContent = '¡Mensaje enviado con éxito!';
+    if (isError) {
+        resultado.textContent = '';
+    } else {
+        resultado.textContent = 'Mensaje enviado con éxito!!!';
         resultado.style.color = 'green';
-
         // Limpiar los campos
         nombreInput.value = '';
         asuntoInput.value = '';
         mensajeInput.value = '';
-    } else {
-        resultado.textContent = '';
     }
 });
